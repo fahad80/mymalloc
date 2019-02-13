@@ -22,19 +22,38 @@ typedef struct sBlockMeta
 	bool free;
 }sBlockMeta_t;
 
+static sBlockMeta_t *Head = NULL;
+
 #define META_SIZE sizeof(sBlockMeta_t)
 
 
 /********************* Private Function Declarations *********************/
 static sBlockMeta_t * requestSpace(size_t size);
+static sBlockMeta_t * findFreeSpace(sBlockMeta_t **last, size_t size);
 
+
+/********************* Function Definitions *********************/
 void * Mymalloc(size_t size)
 {
-	sBlockMeta_t *ptr = requestSpace(size);
+	sBlockMeta_t *last;
+	sBlockMeta_t *ptr = findFreeSpace(&last, size);
 
 	if(ptr == NULL)
 	{
-		return NULL;
+		ptr = requestSpace(size);
+		if(ptr == NULL)
+		{
+			return NULL;
+		}
+	}
+
+	if(Head == NULL)
+	{
+		Head = ptr;
+	}
+	else
+	{
+		last->next = ptr;
 	}
 
 	// As last is sBlockMeta_t type, incrementing by one will
@@ -42,6 +61,19 @@ void * Mymalloc(size_t size)
 	ptr++;
 
 	return ((void *)ptr);
+}
+
+static sBlockMeta_t * findFreeSpace(sBlockMeta_t **last, size_t size)
+{
+	sBlockMeta_t *current = Head;
+
+	while(current != NULL && (current->size < size))
+	{
+		*last = current;
+		current = current->next;
+	}
+
+	return current;
 }
 
 static sBlockMeta_t * requestSpace(size_t size)
