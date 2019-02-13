@@ -34,12 +34,13 @@ void * Mymalloc(size_t size)
 		return NULL;
 	}
 
-	availableHeapSize -= size;
 	uint8_t* last = topOfHeap;
-	topOfHeap = (topOfHeap + size);
+	availableHeapSize -= (size + META_SIZE);
+	topOfHeap = (topOfHeap + size + META_SIZE);
 
 	printf("Available size cur: %d\n", availableHeapSize);
 	printf("topOfHeap add cur: %p\r\n", topOfHeap);
 
 	return ((void *)last);
 }
+

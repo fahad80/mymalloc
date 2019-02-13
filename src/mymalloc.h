@@ -8,6 +8,6 @@
 #ifndef MYMALLOC_H_
 #define MYMALLOC_H_
 
-void * mymalloc(size_t size);
+void * Mymalloc(size_t size);
 
 #endif /* MYMALLOC_H_ */
