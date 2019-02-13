@@ -34,12 +34,16 @@ void * Mymalloc(size_t size)
 		return NULL;
 	}
 
-	uint8_t* last = topOfHeap;
 	availableHeapSize -= (size + META_SIZE);
+	sBlockMeta_t *last = (sBlockMeta_t *)topOfHeap;
 	topOfHeap = (topOfHeap + size + META_SIZE);
 
 	printf("Available size cur: %d\n", availableHeapSize);
 	printf("topOfHeap add cur: %p\r\n", topOfHeap);
+
+	// As last is sBlockMeta_t type, incrementing by one will
+	// point to the address after META_SIZE
+	last++;
 
 	return ((void *)last);
 }
