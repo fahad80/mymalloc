@@ -44,6 +44,16 @@ int main(void)
 	printf("Address of test = %p\n", test);
 	printf("Address of test = %p\n", test2);
 	printf("Address of test = %p\n", test3);
+
+
+	int *test4 = (int *)mymalloc(0);
+
+	if(test4 == NULL)
+	{
+		printf("Test4: Not enough space\n");
+	}
+
+
 	fflush(stdout);
 
 	return 0;
