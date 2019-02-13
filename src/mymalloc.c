@@ -35,6 +35,10 @@ static sBlockMeta_t * findFreeSpace(sBlockMeta_t **last, size_t size);
 /********************* Function Definitions *********************/
 void * Mymalloc(size_t size)
 {
+	if(size <= 0)
+	{
+		return NULL;
+	}
 	printf("Available size prev: %d\n", availableHeapSize);
 	printf("topOfHeap add prev: %p\n", topOfHeap);
 
@@ -90,7 +94,7 @@ static sBlockMeta_t * findFreeSpace(sBlockMeta_t **last, size_t size)
 
 static sBlockMeta_t * requestSpace(size_t size)
 {
-	if(size > availableHeapSize || size <= 0)
+	if((size + META_SIZE) > availableHeapSize)
 	{
 		return NULL;
 	}
