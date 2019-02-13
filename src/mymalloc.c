@@ -30,7 +30,6 @@ static sBlockMeta_t * requestSpace(size_t size);
 
 void * Mymalloc(size_t size)
 {
-
 	sBlockMeta_t *ptr = requestSpace(size);
 
 	if(ptr == NULL)
@@ -55,11 +54,15 @@ static sBlockMeta_t * requestSpace(size_t size)
 		return NULL;
 	}
 	availableHeapSize -= (size + META_SIZE);
-	sBlockMeta_t *last = (sBlockMeta_t *)topOfHeap;
+	sBlockMeta_t *prevTop = (sBlockMeta_t *)topOfHeap;
 	topOfHeap = (topOfHeap + size + META_SIZE);
+
+	prevTop->free = false;
+	prevTop->next = NULL;
+	prevTop->size = size;
 
 	printf("Available size cur: %d\n", availableHeapSize);
 	printf("topOfHeap add cur: %p\r\n", topOfHeap);
 
-	return last;
+	return prevTop;
 }
