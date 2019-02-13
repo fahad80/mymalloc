@@ -35,6 +35,8 @@ static sBlockMeta_t * findFreeSpace(sBlockMeta_t **last, size_t size);
 /********************* Function Definitions *********************/
 void * Mymalloc(size_t size)
 {
+	printf("Available size prev: %d\n", availableHeapSize);
+	printf("topOfHeap add prev: %p\n", topOfHeap);
 	sBlockMeta_t *last;
 	sBlockMeta_t *ptr = findFreeSpace(&last, size);
 
@@ -60,6 +62,11 @@ void * Mymalloc(size_t size)
 		last->next = ptr;
 	}
 
+
+	printf("Available size cur: %d\n", availableHeapSize);
+	printf("topOfHeap add cur: %p\r\n", topOfHeap);
+
+
 	// As last is sBlockMeta_t type, incrementing by one will
 	// point to the address after META_SIZE
 	ptr++;
@@ -82,9 +89,6 @@ static sBlockMeta_t * findFreeSpace(sBlockMeta_t **last, size_t size)
 
 static sBlockMeta_t * requestSpace(size_t size)
 {
-	printf("Available size prev: %d\n", availableHeapSize);
-	printf("topOfHeap add prev: %p\n", topOfHeap);
-
 	if(size > availableHeapSize || size <= 0)
 	{
 		return NULL;

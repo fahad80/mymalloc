@@ -34,25 +34,22 @@ int main(void)
 {
 	int *test = (int *)Mymalloc(sizeof(int));
 	int *test2 = (int *)Mymalloc(sizeof(int));
-	int *test3 = (int *)Mymalloc(248);
+	int *test3 = (int *)Mymalloc(100);
 
-	if(test3 == NULL)
-	{
-		printf("Test3: Not enough space\n");
-	}
-
-	printf("Address of test = %p\n", test);
-	printf("Address of test = %p\n", test2);
-	printf("Address of test = %p\n", test3);
-
+	printf("Address of test1 = %p\n", test);
+	printf("Address of test2 = %p\n", test2);
+	printf("Address of test3 = %p\n", test3);
 
 	int *test4 = (int *)Mymalloc(0);
-
 	if(test4 == NULL)
 	{
 		printf("Test4: Not enough space\n");
 	}
 
+	free(test3);
+
+	int *test5 = (int *)Mymalloc(10);
+	printf("Address of test5 = %p\n", test5);
 
 	fflush(stdout);
 
