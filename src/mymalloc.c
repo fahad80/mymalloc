@@ -46,6 +46,10 @@ void * Mymalloc(size_t size)
 			return NULL;
 		}
 	}
+	else
+	{
+		ptr->free = false;
+	}
 
 	if(Head == NULL)
 	{
