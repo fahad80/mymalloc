@@ -19,7 +19,7 @@ void * mymalloc(size_t size)
 	printf("Available size prev: %d\n", availableHeapSize);
 	printf("topOfHeap add prev: %p\n", topOfHeap);
 
-	if(size > availableHeapSize)
+	if(size > availableHeapSize || size == 0)
 	{
 		return NULL;
 	}
