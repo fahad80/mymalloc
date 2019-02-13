@@ -6,6 +6,7 @@
  */
 #include <stdio.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 #define HEAP_SIZE (256U)
 
@@ -13,6 +14,15 @@ static uint8_t heap_space[HEAP_SIZE + 1];
 
 static uint8_t *topOfHeap = heap_space;
 static int availableHeapSize = HEAP_SIZE;
+
+typedef struct sBlockMeta
+{
+	struct sBlockMeta *next;
+	int size;
+	bool free;
+}sBlockMeta_t;
+
+#define META_SIZE sizeof(sBlockMeta_t)
 
 void * mymalloc(size_t size)
 {
