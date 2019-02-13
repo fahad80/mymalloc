@@ -37,6 +37,7 @@ void * Mymalloc(size_t size)
 {
 	printf("Available size prev: %d\n", availableHeapSize);
 	printf("topOfHeap add prev: %p\n", topOfHeap);
+
 	sBlockMeta_t *last;
 	sBlockMeta_t *ptr = findFreeSpace(&last, size);
 
@@ -47,19 +48,19 @@ void * Mymalloc(size_t size)
 		{
 			return NULL;
 		}
+
+		if(Head == NULL)
+		{
+			Head = ptr;
+		}
+		else
+		{
+			last->next = ptr;
+		}
 	}
 	else
 	{
 		ptr->free = false;
-	}
-
-	if(Head == NULL)
-	{
-		Head = ptr;
-	}
-	else
-	{
-		last->next = ptr;
 	}
 
 
