@@ -32,9 +32,9 @@
 
 int main(void)
 {
-	int *test = (int *)mymalloc(sizeof(int));
-	int *test2 = (int *)mymalloc(sizeof(int));
-	int *test3 = (int *)mymalloc(248);
+	int *test = (int *)Mymalloc(sizeof(int));
+	int *test2 = (int *)Mymalloc(sizeof(int));
+	int *test3 = (int *)Mymalloc(248);
 
 	if(test3 == NULL)
 	{
@@ -46,7 +46,7 @@ int main(void)
 	printf("Address of test = %p\n", test3);
 
 
-	int *test4 = (int *)mymalloc(0);
+	int *test4 = (int *)Mymalloc(0);
 
 	if(test4 == NULL)
 	{
