@@ -24,7 +24,28 @@ typedef struct sBlockMeta
 
 #define META_SIZE sizeof(sBlockMeta_t)
 
+
+/********************* Private Function Declarations *********************/
+static sBlockMeta_t * requestSpace(size_t size);
+
 void * Mymalloc(size_t size)
+{
+
+	sBlockMeta_t *ptr = requestSpace(size);
+
+	if(ptr == NULL)
+	{
+		return NULL;
+	}
+
+	// As last is sBlockMeta_t type, incrementing by one will
+	// point to the address after META_SIZE
+	ptr++;
+
+	return ((void *)ptr);
+}
+
+static sBlockMeta_t * requestSpace(size_t size)
 {
 	printf("Available size prev: %d\n", availableHeapSize);
 	printf("topOfHeap add prev: %p\n", topOfHeap);
@@ -33,7 +54,6 @@ void * Mymalloc(size_t size)
 	{
 		return NULL;
 	}
-
 	availableHeapSize -= (size + META_SIZE);
 	sBlockMeta_t *last = (sBlockMeta_t *)topOfHeap;
 	topOfHeap = (topOfHeap + size + META_SIZE);
@@ -41,10 +61,5 @@ void * Mymalloc(size_t size)
 	printf("Available size cur: %d\n", availableHeapSize);
 	printf("topOfHeap add cur: %p\r\n", topOfHeap);
 
-	// As last is sBlockMeta_t type, incrementing by one will
-	// point to the address after META_SIZE
-	last++;
-
-	return ((void *)last);
+	return last;
 }
-
