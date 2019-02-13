@@ -67,7 +67,7 @@ static sBlockMeta_t * findFreeSpace(sBlockMeta_t **last, size_t size)
 {
 	sBlockMeta_t *current = Head;
 
-	while(current != NULL && (current->size < size))
+	while(current != NULL && !(current->free == true && current->size >= size))
 	{
 		*last = current;
 		current = current->next;
