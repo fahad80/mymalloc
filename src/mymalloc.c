@@ -93,8 +93,18 @@ static sBlockMeta_t * requestSpace(size_t size)
 	prevTop->next = NULL;
 	prevTop->size = size;
 
-	printf("Available size cur: %d\n", availableHeapSize);
-	printf("topOfHeap add cur: %p\r\n", topOfHeap);
-
 	return prevTop;
+}
+
+
+void free(void *ptr)
+{
+	if(ptr == NULL)
+	{
+		return;
+	}
+
+	sBlockMeta_t *blockPtr = (sBlockMeta_t *)ptr - 1;
+	blockPtr->free = true;
+
 }

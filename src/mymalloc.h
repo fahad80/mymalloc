@@ -9,5 +9,6 @@
 #define MYMALLOC_H_
 
 void * Mymalloc(size_t size);
+void free(void *ptr);
 
 #endif /* MYMALLOC_H_ */
